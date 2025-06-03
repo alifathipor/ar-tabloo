@@ -38,66 +38,73 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>AR Video on Hiro Marker</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
-    <style>
-      body { margin: 0; overflow: hidden; }
-      #sound-btn {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        z-index: 1000;
-        padding: 8px 12px;
-        background: rgba(0,0,0,0.5);
-        color: white;
-        border: none;
-        cursor: pointer;
-        font-size: 16px;
+
+<head>
+  <title>AR Video on Hiro Marker</title>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #sound-btn {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <button id="sound-btn">Turn Sound On1</button>
+
+  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+    <a-assets>
+      <video id="video" src="video.mp4" preload="auto" loop muted playsinline crossorigin="anonymous"></video>
+    </a-assets>
+
+    <a-marker preset="hiro">
+      <a-video src="#video" width="1" height="0.5625" position="0 0 0.01">
+      </a-video>
+
+    </a-marker>
+
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <script>
+    const marker = document.querySelector('a-marker');
+    const video = document.querySelector('#video');
+    const soundBtn = document.querySelector('#sound-btn');
+
+    marker.addEventListener('markerFound', () => {
+      video.play();
+    });
+
+    marker.addEventListener('markerLost', () => {
+      video.pause();
+    });
+
+    soundBtn.addEventListener('click', () => {
+      if (video.muted) {
+        video.muted = false;
+        soundBtn.textContent = "Turn Sound Off";
+        if (video.paused) video.play();
+      } else {
+        video.muted = true;
+        soundBtn.textContent = "Turn Sound On";
       }
-    </style>
-  </head>
-  <body>
-    <button id="sound-btn">Turn Sound On1</button>
+    });
+  </script>
+</body>
 
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-      <a-assets>
-        <video id="video" src="video.mp4" preload="auto" loop muted playsinline crossorigin="anonymous"></video>
-      </a-assets>
-
-      <a-marker preset="hiro">
-       <a-video src="#video" width="1" height="1" position="0 0 0" rotation="0 0 0"></a-video>
-
-      </a-marker>
-
-      <a-entity camera></a-entity>
-    </a-scene>
-
-    <script>
-      const marker = document.querySelector('a-marker');
-      const video = document.querySelector('#video');
-      const soundBtn = document.querySelector('#sound-btn');
-
-      marker.addEventListener('markerFound', () => {
-        video.play();
-      });
-
-      marker.addEventListener('markerLost', () => {
-        video.pause();
-      });
-
-      soundBtn.addEventListener('click', () => {
-        if (video.muted) {
-          video.muted = false;
-          soundBtn.textContent = "Turn Sound Off";
-          if (video.paused) video.play();
-        } else {
-          video.muted = true;
-          soundBtn.textContent = "Turn Sound On";
-        }
-      });
-    </script>
-  </body>
 </html>
-
