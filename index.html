@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>AR Video on NFT Image2</title>
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
@@ -25,21 +24,23 @@
     }
   </style>
 </head>
-
 <body>
+  <button id="sound-btn">Turn Sound On 1</button>
+
   <a-scene embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
     <a-assets>
       <video id="video" src="video.mp4" preload="auto" loop muted playsinline crossorigin="anonymous"></video>
     </a-assets>
 
     <a-nft type="nft" url="ar-tabloo/image" smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
-      <a-video src="#video" width="1" height="0.5625" position="0 0 0" rotation="-90 0 0">
+      <a-video src="#video" width="1" height="0.5625" position="0 0 0.01" rotation="-90 0 0"></a-video>
     </a-nft>
 
     <a-entity camera></a-entity>
   </a-scene>
+
   <script>
-    const marker = document.querySelector('a-marker');
+    const marker = document.querySelector('a-nft');
     const video = document.querySelector('#video');
     const soundBtn = document.querySelector('#sound-btn');
 
@@ -63,5 +64,4 @@
     });
   </script>
 </body>
-
 </html>
