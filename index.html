@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <title>AR Video on NFT Image2</title>
@@ -64,4 +64,37 @@
     });
   </script>
 </body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple NFT AR Box</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar-nft.js"></script>
+    <style>
+      body { margin: 0; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <a-scene embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
+      
+      <!-- NFT Marker -->
+      <a-nft
+        type="nft"
+        url="ar-tabloo/pexel" 
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance="0.01"
+        smoothThreshold="5"
+      >
+        <!-- Box on marker -->
+        <a-box color="red" depth="0.1" height="1" width="1" position="0 0.5 0"></a-box>
+      </a-nft>
+
+      <!-- Camera -->
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
 </html>
+
