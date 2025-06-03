@@ -25,7 +25,7 @@
   </style>
 </head>
 <body>
-  <button id="sound-btn">Turn Sound On 1</button>
+  <button id="sound-btn">Turn Sound On 2</button>
 
   <a-scene embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
     <a-assets>
@@ -33,7 +33,7 @@
     </a-assets>
 
     <a-nft type="nft" url="ar-tabloo/image" smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
-      <a-video src="#video" width="1" height="0.5625" position="0 0 0.01" rotation="-90 0 0"></a-video>
+      <a-box position="0 0.05 0" rotation="-90 0 0" depth="0.01" height="0.5625" width="1" color="red"></a-box>
     </a-nft>
 
     <a-entity camera></a-entity>
