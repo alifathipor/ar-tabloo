@@ -1,100 +1,67 @@
-<!-- <!DOCTYPE html>
-<html>
-  <head>
-    <title>AR Video on NFT Image</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar-nft.js"></script>
-    <style>
-      body { margin: 0; overflow: hidden; }
-    </style>
-  </head>
-  <body>
-    <a-scene embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
-      <a-assets>
-        <video id="video" src="video.mp4" preload="auto" loop muted playsinline crossorigin="anonymous"></video>
-      </a-assets>
-
-      <a-nft type="nft" url="ar-tabloo/image" smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
-        <a-video src="#video" width="1" height="0.5625" position="0 0 0"></a-video>
-      </a-nft>
-
-      <a-entity camera></a-entity>
-    </a-scene>
-
-    <script>
-      const marker = document.querySelector('a-nft');
-      const video = document.querySelector('#video');
-
-      marker.addEventListener('markerFound', () => {
-        video.play();
-      });
-
-      marker.addEventListener('markerLost', () => {
-        video.pause();
-      });
-    </script>
-  </body>
-</html> -->
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>AR Video on NFT Image</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar-nft.js"></script>
-    <style>
-      body { margin: 0; overflow: hidden; }
-    </style>
-  </head>
-  <body>
-    <a-scene
-      embedded
-      arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-    >
-      <a-assets>
-        <video
-          id="video"
-          src="video.mp4"
-          preload="auto"
-          loop
-          playsinline
-          crossorigin="anonymous"
-        ></video>
-      </a-assets>
 
-      <!-- 📌 اینجا مارکر NFT تعریف می‌شه -->
-      <a-nft
-        type="nft"
-        url="yourimage"
-        smooth="true"
-        smoothCount="10"
-        smoothTolerance="0.01"
-        smoothThreshold="5"
-      >
-        <!-- 📺 اینجا ویدیو روی تصویر نمایش داده می‌شه -->
-        <a-video
-          src="#video"
-          width="1"
-          height="0.5625"
-          position="0 0 0.01"
-          rotation="-90 0 0"
-        ></a-video>
-      </a-nft>
+<head>
+  <title>AR Video on NFT Image</title>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar-nft.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
 
-      <a-entity camera></a-entity>
-    </a-scene>
+    #sound-btn {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
+</head>
 
-    <script>
-      const marker = document.querySelector("a-nft");
-      const video = document.querySelector("#video");
+<body>
+  <a-scene embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
+    <a-assets>
+      <video id="video" src="video.mp4" preload="auto" loop muted playsinline crossorigin="anonymous"></video>
+    </a-assets>
 
-      marker.addEventListener("markerFound", () => {
-        video.play();
-      });
+    <a-nft type="nft" url="ar-tabloo/image" smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
+      <a-video src="#video" width="1" height="0.5625" position="0 0 0" rotation="-90 0 0">
+    </a-nft>
 
-      marker.addEventListener("markerLost", () => {
-        video.pause();
-      });
-    </script>
-  </body>
+    <a-entity camera></a-entity>
+  </a-scene>
+  <script>
+    const marker = document.querySelector('a-marker');
+    const video = document.querySelector('#video');
+    const soundBtn = document.querySelector('#sound-btn');
+
+    marker.addEventListener('markerFound', () => {
+      video.play();
+    });
+
+    marker.addEventListener('markerLost', () => {
+      video.pause();
+    });
+
+    soundBtn.addEventListener('click', () => {
+      if (video.muted) {
+        video.muted = false;
+        soundBtn.textContent = "Turn Sound Off";
+        if (video.paused) video.play();
+      } else {
+        video.muted = true;
+        soundBtn.textContent = "Turn Sound On";
+      }
+    });
+  </script>
+</body>
+
 </html>
