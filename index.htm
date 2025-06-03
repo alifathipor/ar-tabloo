@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AR Video on NFT Image</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar-nft.js"></script>
+    <style>
+      body { margin: 0; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <a-scene embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
+      <a-assets>
+        <video id="video" src="video.mp4" preload="auto" loop muted playsinline crossorigin="anonymous"></video>
+      </a-assets>
+
+      <a-nft type="nft" url="image" smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
+        <a-video src="#video" width="1" height="0.5625" position="0 0 0"></a-video>
+      </a-nft>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+      const marker = document.querySelector('a-nft');
+      const video = document.querySelector('#video');
+
+      marker.addEventListener('markerFound', () => {
+        video.play();
+      });
+
+      marker.addEventListener('markerLost', () => {
+        video.pause();
+      });
+    </script>
+  </body>
+</html>
